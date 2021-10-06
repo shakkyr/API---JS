@@ -40,13 +40,16 @@ for (let i = 0 ; i<10; i++){
         if ((ques[i].answer) == "True"){
             x+= 10;
             score.innerHTML = x ;
-            
+            h2.innerHTML= (ques[i+1].question)
+            console.log(ques[i].answer)
         }
     })
     no.addEventListener('click', ()=>{
         if ((ques[i].answer)  == "False"){
             x+= 10;
             score.innerHTML = x ;
+            h2.innerHTML= (ques[i+1].question)
+            console.log(ques[i].answer);
            
         }
     })
