@@ -5,6 +5,10 @@ let h2 = document.querySelector('h2'),
     no = document.querySelector('#false'),
     score = document.querySelector('span');
 
+let currentQuestion = 0;
+let x = 0;
+let ques = [];
+
 async function myQuiz () {
     let myQues = [];
     let arr = await (await fetch(myLink)).json();
@@ -22,43 +26,46 @@ async function myQuiz () {
 }
 // myQuiz()
 async function ask (){
-    let ques ;
+    
     try {
         ques = await myQuiz();
         console.log(ques);
+        setQuestion(0)
     }
     catch (err){
-    console.log(err);
+        console.log(err);
     }
-//    h2
-//    yes
-//    no
-for (let i = 0 ; i<10; i++){
-    let x = 0;
-    h2.innerHTML= (ques[i].question)
-    yes.addEventListener('click', ()=> {
-        if ((ques[i].answer) == "True"){
-            x+= 10;
-            score.innerHTML = x ;
-            h2.innerHTML= (ques[i+1].question)
-            console.log(ques[i].answer)
-        }
-    })
-    no.addEventListener('click', ()=>{
-        if ((ques[i].answer)  == "False"){
-            x+= 10;
-            score.innerHTML = x ;
-            h2.innerHTML= (ques[i+1].question)
-            console.log(ques[i].answer);
-           
-        }
-    })
-
-   console.log(ques[i].answer);
-}
-
-
-
 
 }
 ask()
+
+
+
+yes.addEventListener('click', ()=> {
+    //console.log('ques[i].answer ' + ques[currentQuestion].answer);
+    if ((ques[currentQuestion].answer) == "True"){
+        x+= 10;
+        score.innerHTML = x ;
+        currentQuestion++;
+        setQuestion(currentQuestion)
+        
+    }
+})
+no.addEventListener('click', ()=>{
+    console.log('ques[i].answer ' + ques[currentQuestion].answer);
+    if ((ques[currentQuestion].answer)  == "False"){
+        x+= 10;
+        score.innerHTML = x ;
+        currentQuestion++;
+        setQuestion(currentQuestion)
+    
+    }
+})
+
+function setQuestion() {
+
+    if (currentQuestion < 9) {
+        h2.innerHTML= (ques[currentQuestion].question)     
+    }
+   
+}
